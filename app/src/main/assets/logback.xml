@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2020. yono-ms
+  -->
+
+<configuration>
+    <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
+        <tagEncoder>
+            <pattern>Native361</pattern>
+        </tagEncoder>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="logcat" />
+    </root>
+</configuration>
