@@ -15,4 +15,5 @@ open class BaseViewModel : ViewModel() {
     }
 
     val dialogMessage: MutableLiveData<DialogMessage> by lazy { MutableLiveData<DialogMessage>() }
+    val destination: MutableLiveData<Destination> by lazy { MutableLiveData<Destination>() }
 }

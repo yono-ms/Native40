@@ -4,6 +4,7 @@
 
 package com.example.native40
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,13 @@ class StartFragment : BaseFragment() {
         logger.info("onViewCreated")
         if (savedInstanceState == null) {
             viewModel.start()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            RequestCode.ALERT.rawValue -> viewModel.destination.value = Destination.REPLACE_HOME
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 }

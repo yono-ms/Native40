@@ -26,6 +26,24 @@ open class BaseFragment : Fragment() {
                 viewModel.dialogMessage.value = null
             }
         })
+
+        viewModel.destination.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                logger.info(it.toString())
+                transition(it)
+                viewModel.destination.value = null
+            }
+        })
+    }
+
+    private fun transition(destination: Destination) {
+        logger.info("transition destination=$destination")
+        val id = R.id.frameLayoutContent
+        requireActivity().supportFragmentManager.beginTransaction().let {
+            when (destination) {
+                Destination.REPLACE_HOME -> it.replace(id, HomeFragment.newInstance()).commit()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

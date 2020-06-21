@@ -12,3 +12,7 @@ enum class RequestCode(val rawValue: Int) {
 enum class ExtraKey(val rawValue: String) {
     SINGLE_CHOICE("SINGLE_CHOICE")
 }
+
+enum class Destination {
+    REPLACE_HOME
+}
