@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2020. yono-ms
+  -->
+
 <resources>
     <string name="app_name">Native40</string>
+    <string name="button_ok">OK</string>
 </resources>
