@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         private val logger: Logger = LoggerFactory.getLogger(MainActivity::class.java.simpleName)
     }
 
-    private val viewModel: MainViewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 

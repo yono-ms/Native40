@@ -5,4 +5,5 @@
 <resources>
     <string name="app_name">Native40</string>
     <string name="button_ok">OK</string>
+    <string name="button_test">TEST</string>
 </resources>

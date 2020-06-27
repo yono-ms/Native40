@@ -10,4 +10,5 @@ import androidx.lifecycle.MutableLiveData
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     val headerText = MutableLiveData("loading...")
+    val busy = MutableLiveData(false)
 }

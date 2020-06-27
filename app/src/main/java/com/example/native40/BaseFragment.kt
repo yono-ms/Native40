@@ -6,6 +6,7 @@ package com.example.native40
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -14,6 +15,8 @@ open class BaseFragment : Fragment() {
     val logger: Logger by lazy {
         LoggerFactory.getLogger(javaClass.simpleName)
     }
+
+    val mainViewModel by activityViewModels<MainViewModel>()
 
     fun initBaseFragment(viewModel: BaseViewModel) {
         logger.info("initBaseFragment vm=$viewModel")

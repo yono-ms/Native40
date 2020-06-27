@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.native40.databinding.HomeFragmentBinding
 
@@ -19,13 +18,11 @@ class HomeFragment : BaseFragment() {
         fun newInstance() = HomeFragment()
     }
 
-    private val viewModel: HomeViewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java].also {
             initBaseFragment(it)
         }
     }
-
-    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +37,9 @@ class HomeFragment : BaseFragment() {
         ).also {
             it.viewModel = viewModel
             it.lifecycleOwner = viewLifecycleOwner
+            it.button.setOnClickListener {
+                viewModel.onClick(mainViewModel)
+            }
         }
         return binding.root
     }

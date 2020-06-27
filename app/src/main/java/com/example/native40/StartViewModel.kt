@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class StartViewModel : BaseViewModel() {
 
-    val progressInt: MutableLiveData<Int> by lazy { MutableLiveData(0) }
+    private val progressInt: MutableLiveData<Int> by lazy { MutableLiveData(0) }
     val progress: LiveData<String> = Transformations.map(progressInt) {
         "$it"
     }
