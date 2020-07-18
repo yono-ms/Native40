@@ -9,6 +9,7 @@ package com.example.native40
  * 組み合わせ:
  * 1. title/message
  * 2. title/items
+ * 3. throwable
  */
 data class DialogMessage(
     /**
@@ -16,9 +17,9 @@ data class DialogMessage(
      */
     val requestCode: RequestCode,
     /**
-     * タイトルリソースID. 必須.
+     * タイトルリソースID. 任意.
      */
-    val title: Int,
+    val title: Int? = null,
     /**
      * メッセージリソースID. 任意.
      */
@@ -26,5 +27,9 @@ data class DialogMessage(
     /**
      * 単一選択用リスト.
      */
-    val items: List<String>? = null
+    val items: List<String>? = null,
+    /**
+     * 例外.
+     */
+    val throwable: Throwable? = null
 )

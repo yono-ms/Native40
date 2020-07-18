@@ -33,6 +33,7 @@ abstract class GitHubAPICore {
             )
         log("$request")
         log("$response")
+        log(result.get().toString())
         return result.get()
     }
 
@@ -43,6 +44,7 @@ abstract class GitHubAPICore {
             )
         log("$request")
         log("$response")
+        log(result.get().toString())
         return result.get()
     }
 }
