@@ -6,6 +6,7 @@
     <string name="app_name">Native40</string>
     <string name="button_ok">OK</string>
     <string name="button_test">TEST</string>
+
     <string name="dialog_title_fuel_error">COMM ERROR</string>
     <string name="dialog_title_http_exception">HTTP ERROR</string>
     <string name="dialog_title_malformed_url_exception">URL ERROR</string>
@@ -13,4 +14,7 @@
     <string name="dialog_title_json_exception">FORMAT ERROR</string>
     <string name="dialog_title_serialization_exception">PARSE ERROR</string>
     <string name="dialog_title_other_exception">SYSTEM ERROR</string>
+
+    <string name="dialog_title_connection_error">CONNECTION ERROR</string>
+    <string name="dialog_message_connection_error">Network is not connected.</string>
 </resources>

@@ -19,4 +19,11 @@ open class BaseViewModel : ViewModel() {
 
     val dialogMessage: MutableLiveData<DialogMessage> by lazy { MutableLiveData<DialogMessage>() }
     val destination: MutableLiveData<Destination> by lazy { MutableLiveData<Destination>() }
+
+    val connectionErrorDialogMessage: DialogMessage
+        get() = DialogMessage(
+            RequestCode.ALERT,
+            R.string.dialog_title_connection_error,
+            R.string.dialog_message_connection_error
+        )
 }

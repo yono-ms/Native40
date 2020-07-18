@@ -15,6 +15,10 @@ class HomeViewModel : BaseViewModel() {
     val items = ObservableArrayList<Pair<String, String>>()
 
     fun onClick(mainViewModel: MainViewModel) {
+        if (mainViewModel.connected.value != true) {
+            dialogMessage.value = connectionErrorDialogMessage
+            return
+        }
         viewModelScope.launch {
             kotlin.runCatching {
                 mainViewModel.busy.value = true
