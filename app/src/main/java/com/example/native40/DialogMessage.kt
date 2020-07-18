@@ -9,7 +9,6 @@ package com.example.native40
  * 組み合わせ:
  * 1. title/message
  * 2. title/items
- * 3. title/exception
  */
 data class DialogMessage(
     /**
@@ -27,9 +26,5 @@ data class DialogMessage(
     /**
      * 単一選択用リスト.
      */
-    val items: List<String>? = null,
-    /**
-     * 例外情報. 指定すると例外フォーマット表示に切り替え.
-     */
-    val exception: Throwable? = null
+    val items: List<String>? = null
 )
