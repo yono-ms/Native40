@@ -25,16 +25,30 @@
             android:id="@+id/textViewHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:text="@{viewModel.headerText}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Header" />
+
+        <ImageView
+            android:id="@+id/imageViewConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            android:tint="@{viewModel.connected ? @android:color/holo_green_light : @android:color/holo_red_light}"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewHeader"
+            app:srcCompat="@android:drawable/alert_light_frame" />
 
         <FrameLayout
             android:id="@+id/frameLayoutContent"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
