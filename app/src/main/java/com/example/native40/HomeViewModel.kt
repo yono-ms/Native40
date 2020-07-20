@@ -6,6 +6,7 @@ package com.example.native40
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.viewModelScope
+import com.example.native40.extension.toDisplayDateFromISO
 import com.example.native40.network.GitHubAPI
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.content
@@ -25,7 +26,8 @@ class HomeViewModel : BaseViewModel() {
                 items.clear()
                 GitHubAPI().getRepos("kittinunf").map { a ->
                     val name = a.jsonObject["name"]?.content ?: "no_name"
-                    val updatedAt = a.jsonObject["updated_at"]?.content.toString()
+                    val updatedAt =
+                        a.jsonObject["updated_at"]?.content.toString().toDisplayDateFromISO()
                     Pair(name, updatedAt)
                 }
             }.onSuccess {
