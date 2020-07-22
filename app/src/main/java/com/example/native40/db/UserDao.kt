@@ -11,13 +11,16 @@ interface UserDao {
     @Query("SELECT * FROM user")
     suspend fun getAll(): List<User>
 
+    @Query("SELECT * FROM user ORDER BY time_stamp DESC")
+    suspend fun getAllHistory(): List<User>
+
     @Query("SELECT * FROM user WHERE login = :login LIMIT 1")
     suspend fun findByLogin(login: String): User?
 
     @Query("DELETE FROM user")
     suspend fun clear()
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg user: User)
 
     @Update

@@ -14,7 +14,10 @@
     <string name="dialog_title_json_exception">FORMAT ERROR</string>
     <string name="dialog_title_serialization_exception">PARSE ERROR</string>
     <string name="dialog_title_other_exception">SYSTEM ERROR</string>
+    <string name="dialog_title_history_choice">Select login name</string>
 
     <string name="dialog_title_connection_error">CONNECTION ERROR</string>
     <string name="dialog_message_connection_error">Network is not connected.</string>
+    <string name="login_hint">login</string>
+    <string name="button_history">History</string>
 </resources>
