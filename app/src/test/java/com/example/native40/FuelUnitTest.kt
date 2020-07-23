@@ -32,20 +32,21 @@ class FuelUnitTest {
      */
     @Test
     fun badProtocol() {
-//        runBlocking {
-//            kotlin.runCatching {
-//                val (request, response, result) = Fuel.get("protocol://hhoosstt/aappii")
-//                    .awaitStringResponseResult()
-//                println(request)
-//                println(response)
-//                result.get()
-//            }.onSuccess {
-//                assert(false)
-//            }.onFailure {
-//                assert(it is MalformedURLException)
-//                println("COMM ERROR : ${it.message}")
-//            }
-//        }
+        runBlocking {
+            kotlin.runCatching {
+                val (request, response, result) = Fuel.get("protocol://hhoosstt/aappii")
+                    .awaitStringResponseResult()
+                println(request)
+                println(response)
+                result.get()
+            }.onSuccess {
+                assert(false)
+            }.onFailure {
+                // GitHub Actionsではなぜか動かない
+                //assert(it is MalformedURLException)
+                println("COMM ERROR : ${it.message}")
+            }
+        }
     }
 
     /**
