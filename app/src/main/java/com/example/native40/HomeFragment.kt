@@ -4,6 +4,7 @@
 
 package com.example.native40
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,9 @@ class HomeFragment : BaseFragment() {
         ).also {
             it.viewModel = viewModel
             it.lifecycleOwner = viewLifecycleOwner
+            it.buttonHistory.setOnClickListener {
+                viewModel.onHistory()
+            }
             it.button.setOnClickListener {
                 viewModel.onClick(mainViewModel)
             }
@@ -48,6 +52,17 @@ class HomeFragment : BaseFragment() {
             it.recyclerView.adapter = RecyclerAdapter(viewModel.items)
         }
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RequestCode.SINGLE_CHOICE.rawValue) {
+            logger.info("onActivityResult requestCode=$requestCode resultCode=$resultCode")
+            data?.getStringExtra(ExtraKey.SINGLE_CHOICE.rawValue)?.let {
+                viewModel.onSelect(it)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     class RecyclerAdapter(private val items: ObservableList<Pair<String, String>>) :

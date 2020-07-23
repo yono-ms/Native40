@@ -19,21 +19,50 @@
         tools:context=".HomeFragment">
 
         <Button
+            android:id="@+id/buttonHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_history"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextLogin"
+            app:layout_constraintEnd_toStartOf="@+id/editTextLogin"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editTextLogin" />
+
+        <EditText
+            android:id="@+id/editTextLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/login_hint"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.login}"
+            app:layout_constraintBottom_toBottomOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/buttonHistory"
+            app:layout_constraintTop_toTopOf="@+id/button" />
+
+        <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_test"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/editTextLogin"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

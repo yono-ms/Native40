@@ -10,7 +10,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.example.native40.extension.dialogMessage
 import com.example.native40.extension.dialogTitle
 import org.slf4j.LoggerFactory
@@ -43,8 +42,6 @@ class AlertDialogFragment : DialogFragment() {
             }
         }
     }
-
-    val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let { activity ->
@@ -81,7 +78,8 @@ class AlertDialogFragment : DialogFragment() {
                     }
                 }
             }
-            builder.create().also { isCancelable = false }
+            builder.create()
+                .also { isCancelable = targetRequestCode == RequestCode.SINGLE_CHOICE.rawValue }
         } ?: throw IllegalStateException("activity is null.")
     }
 }
