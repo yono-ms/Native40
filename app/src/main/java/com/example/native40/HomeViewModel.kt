@@ -22,7 +22,7 @@ class HomeViewModel : BaseViewModel() {
 
     fun onHistory() {
         viewModelScope.launch {
-            val list = Native40App.db.userDao().getAllHistory()
+            val list = db.userDao().getAllHistory()
             if (list.isEmpty()) {
                 return@launch
             }
@@ -56,7 +56,7 @@ class HomeViewModel : BaseViewModel() {
                 }
             }.onSuccess {
                 items.addAll(it)
-                Native40App.db.userDao().insertAll(User(0, login.value.toString(), Date()))
+                db.userDao().insertAll(User(0, login.value.toString(), Date()))
                 logger.info("Success.")
             }.onFailure {
                 dialogMessage.value = DialogMessage(RequestCode.ALERT, throwable = it)
