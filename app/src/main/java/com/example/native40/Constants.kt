@@ -6,7 +6,8 @@ package com.example.native40
 
 enum class RequestCode(val rawValue: Int) {
     ALERT(100),
-    SINGLE_CHOICE(101)
+    OK_CANCEL(101),
+    SINGLE_CHOICE(102)
 }
 
 enum class ExtraKey(val rawValue: String) {
@@ -14,5 +15,6 @@ enum class ExtraKey(val rawValue: String) {
 }
 
 enum class Destination {
-    REPLACE_HOME
+    REPLACE_HOME,
+    PUSH_HISTORY
 }

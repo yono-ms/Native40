@@ -20,9 +20,7 @@ class StartFragment : BaseFragment() {
     }
 
     private val viewModel by lazy {
-        ViewModelProvider(this)[StartViewModel::class.java].also {
-            initBaseFragment(it)
-        }
+        ViewModelProvider(this)[StartViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -38,6 +36,7 @@ class StartFragment : BaseFragment() {
         ).also {
             it.viewModel = viewModel
             it.lifecycleOwner = viewLifecycleOwner
+            initBaseFragment(viewModel)
         }
         return binding.root
     }
