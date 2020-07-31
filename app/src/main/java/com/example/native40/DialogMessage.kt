@@ -13,17 +13,21 @@ package com.example.native40
  */
 data class DialogMessage(
     /**
-     * リクエストコード. 必須.
+     * リクエストコード.
      */
     val requestCode: RequestCode,
     /**
-     * タイトルリソースID. 任意.
+     * タイトルリソースID.
      */
     val title: Int? = null,
     /**
-     * メッセージリソースID. 任意.
+     * メッセージリソースID.
      */
     val message: Int? = null,
+    /**
+     * 可変メッセージID用の埋め込み文字列リスト.
+     */
+    val messageArgs: List<String>? = null,
     /**
      * 単一選択用リスト.
      */

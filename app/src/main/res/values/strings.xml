@@ -5,6 +5,7 @@
 <resources>
     <string name="app_name">Native40</string>
     <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
     <string name="button_test">TEST</string>
 
     <string name="dialog_title_fuel_error">COMM ERROR</string>
@@ -15,9 +16,14 @@
     <string name="dialog_title_serialization_exception">PARSE ERROR</string>
     <string name="dialog_title_other_exception">SYSTEM ERROR</string>
     <string name="dialog_title_history_choice">Select login name</string>
+    <string name="dialog_title_history_remove">Remove login name</string>
+    <string name="dialog_message_history_remove">Delete %1$s from DB. Is it OK?</string>
 
     <string name="dialog_title_connection_error">CONNECTION ERROR</string>
     <string name="dialog_message_connection_error">Network is not connected.</string>
     <string name="login_hint">login</string>
     <string name="button_history">History</string>
+    <string name="button_edit_history">Edit History</string>
+    <string name="radio_name">sort by name</string>
+    <string name="radio_date">sort by date</string>
 </resources>

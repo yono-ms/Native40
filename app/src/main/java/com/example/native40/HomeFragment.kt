@@ -24,9 +24,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java].also {
-            initBaseFragment(it)
-        }
+        ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -48,8 +46,12 @@ class HomeFragment : BaseFragment() {
             it.button.setOnClickListener {
                 viewModel.onClick(mainViewModel)
             }
+            it.buttonEditHistory.setOnClickListener {
+                viewModel.destination.value = Destination.PUSH_HISTORY
+            }
             it.recyclerView.layoutManager = LinearLayoutManager(context)
             it.recyclerView.adapter = RecyclerAdapter(viewModel.items)
+            initBaseFragment(viewModel)
         }
         return binding.root
     }

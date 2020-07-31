@@ -4,6 +4,7 @@
 
 package com.example.native40.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -13,6 +14,13 @@ interface UserDao {
 
     @Query("SELECT * FROM user ORDER BY time_stamp DESC")
     suspend fun getAllHistory(): List<User>
+
+    // LiveDataはsuspend関数にできない
+    @Query("SELECT * FROM user ORDER BY login ASC")
+    fun getHistoryLiveDataLogin(): LiveData<List<User>>
+
+    @Query("SELECT * FROM user ORDER BY time_stamp DESC")
+    fun getHistoryLiveDataTimeStamp(): LiveData<List<User>>
 
     @Query("SELECT * FROM user WHERE login = :login LIMIT 1")
     suspend fun findByLogin(login: String): User?
