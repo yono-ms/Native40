@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableList
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.native40.databinding.HomeFragmentBinding
 
@@ -50,7 +52,27 @@ class HomeFragment : BaseFragment() {
                 viewModel.destination.value = Destination.PUSH_HISTORY
             }
             it.recyclerView.layoutManager = LinearLayoutManager(context)
-            it.recyclerView.adapter = RecyclerAdapter(viewModel.items)
+            it.recyclerView.adapter = PairAdapter(object :
+                DiffUtil.ItemCallback<Pair<String, String>>() {
+                override fun areItemsTheSame(
+                    oldItem: Pair<String, String>,
+                    newItem: Pair<String, String>
+                ): Boolean {
+                    return oldItem.first == newItem.first
+                }
+
+                override fun areContentsTheSame(
+                    oldItem: Pair<String, String>,
+                    newItem: Pair<String, String>
+                ): Boolean {
+                    return oldItem == newItem
+                }
+            }).also { adapter ->
+                viewModel.items.observe(viewLifecycleOwner, Observer { items ->
+                    logger.info("viewModel.items changed.")
+                    adapter.submitList(items)
+                })
+            }
             initBaseFragment(viewModel)
         }
         return binding.root
@@ -67,52 +89,13 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    class RecyclerAdapter(private val items: ObservableList<Pair<String, String>>) :
-        RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    class PairAdapter(diffCallback: DiffUtil.ItemCallback<Pair<String, String>>) :
+        ListAdapter<Pair<String, String>, PairAdapter.ViewHolder>(diffCallback) {
 
-        init {
-            items.addOnListChangedCallback(object :
-                ObservableList.OnListChangedCallback<ObservableList<Pair<String, String>>>() {
-                override fun onChanged(sender: ObservableList<Pair<String, String>>?) {
-                    notifyDataSetChanged()
-                }
-
-                override fun onItemRangeRemoved(
-                    sender: ObservableList<Pair<String, String>>?,
-                    positionStart: Int,
-                    itemCount: Int
-                ) {
-                    notifyItemRangeRemoved(positionStart, itemCount)
-                }
-
-                override fun onItemRangeMoved(
-                    sender: ObservableList<Pair<String, String>>?,
-                    fromPosition: Int,
-                    toPosition: Int,
-                    itemCount: Int
-                ) {
-                    notifyDataSetChanged()
-                }
-
-                override fun onItemRangeInserted(
-                    sender: ObservableList<Pair<String, String>>?,
-                    positionStart: Int,
-                    itemCount: Int
-                ) {
-                    notifyItemRangeInserted(positionStart, itemCount)
-                }
-
-                override fun onItemRangeChanged(
-                    sender: ObservableList<Pair<String, String>>?,
-                    positionStart: Int,
-                    itemCount: Int
-                ) {
-                    notifyItemRangeChanged(positionStart, itemCount)
-                }
-            })
+        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val text1: TextView = itemView.findViewById(android.R.id.text1)
+            val text2: TextView = itemView.findViewById(android.R.id.text2)
         }
-
-        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(
@@ -121,14 +104,9 @@ class HomeFragment : BaseFragment() {
             )
         }
 
-        override fun getItemCount(): Int {
-            return items.size
-        }
-
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.itemView.findViewById<TextView>(android.R.id.text1).text = items[position].first
-            holder.itemView.findViewById<TextView>(android.R.id.text2).text = items[position].second
+            holder.text1.text = getItem(position).first
+            holder.text2.text = getItem(position).second
         }
     }
-
 }
