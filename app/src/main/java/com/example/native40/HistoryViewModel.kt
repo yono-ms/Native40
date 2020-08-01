@@ -5,26 +5,38 @@
 package com.example.native40
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.native40.db.User
 import kotlinx.coroutines.launch
 
 class HistoryViewModel : BaseViewModel() {
-    val items: LiveData<List<User>> by lazy {
+    private val dbItems: LiveData<List<User>> by lazy {
         db.userDao().getHistoryLiveDataLogin()
     }
 
-    fun sort(resId: Int) {
-        when (resId) {
-            R.id.radioButtonName -> logger.info("sort name.")
-            else -> logger.info("sort date.")
+    val sortByLogin = MutableLiveData(true)
+
+    val items: MediatorLiveData<List<User>> by lazy {
+        MediatorLiveData<List<User>>().apply {
+            fun mediate(list: List<User>?, isSortByLogin: Boolean?) {
+                items.value =
+                    if (isSortByLogin == true) list?.sortedBy { a -> a.login } else list?.sortedByDescending { a -> a.timeStamp }
+            }
+            addSource(dbItems) {
+                mediate(it, sortByLogin.value)
+            }
+            addSource(sortByLogin) {
+                mediate(dbItems.value, it)
+            }
         }
     }
 
     fun remove(login: String) {
         logger.info("remove $login")
         viewModelScope.launch {
-            items.value?.firstOrNull { a -> a.login == login }?.let {
+            dbItems.value?.firstOrNull { a -> a.login == login }?.let {
                 db.userDao().delete(it)
             }
         }

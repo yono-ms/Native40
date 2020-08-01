@@ -6,13 +6,14 @@ Native Android Application.
 - ViewレベルはFragmentで完結させる
 - なんでもbindしない
   - RecyclerAdapterは必要機能を整理してonBindViewHolderをコードで書く
-  - CollectionChanged系イベントを使う
+  - ListAdapterでDiffUtilを使うとLiveDataから変更点だけ適用できる
 - onClickListenerなどイベントはxmlに書かない
-  - inlateのalsoでit.button.setOnClickListener
+  - inflateのalsoでit.button.setOnClickListener
   - ここでviewModel.onClick(activityViewModel)などでVMに切り替える
 
 # View Model
 
 - Viewプロパティなどの要素は使わず抽象化する
 - 全部がMutableLiveDataではない
-  - ObservableListでRecyclerAdapterのコードビハインドと連携もある
+- ObservableListは使わずにListAdapterで実現する
+  - 見た目だけソートはソートキーとDBのLiveDataからMediatorLiveDataを作る
