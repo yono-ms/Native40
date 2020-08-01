@@ -4,7 +4,6 @@
 
 package com.example.native40
 
-import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.native40.db.User
@@ -18,7 +17,11 @@ class HomeViewModel : BaseViewModel() {
 
     val login: MutableLiveData<String> by lazy { MutableLiveData("") }
 
-    val items = ObservableArrayList<Pair<String, String>>()
+    val items: MutableLiveData<List<Pair<String, String>>> by lazy {
+        MutableLiveData<List<Pair<String, String>>>(
+            listOf()
+        )
+    }
 
     fun onHistory() {
         viewModelScope.launch {
@@ -47,7 +50,7 @@ class HomeViewModel : BaseViewModel() {
         viewModelScope.launch {
             kotlin.runCatching {
                 mainViewModel.busy.value = true
-                items.clear()
+                items.value = listOf()
                 GitHubAPI().getRepos(login.value.toString()).map { a ->
                     val name = a.jsonObject["name"]?.content ?: "no_name"
                     val updatedAt =
@@ -55,7 +58,7 @@ class HomeViewModel : BaseViewModel() {
                     Pair(name, updatedAt)
                 }
             }.onSuccess {
-                items.addAll(it)
+                items.value = it
                 db.userDao().insertAll(User(0, login.value.toString(), Date()))
                 logger.info("Success.")
             }.onFailure {
