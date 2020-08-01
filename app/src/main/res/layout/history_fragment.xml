@@ -27,11 +27,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
-                android:id="@+id/radioButtonName"
+                android:id="@+id/radioButtonLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/radio_name" />
+                android:checked="@={viewModel.sortByLogin}"
+                android:text="@string/radio_login" />
 
             <RadioButton
                 android:id="@+id/radioButtonDate"
