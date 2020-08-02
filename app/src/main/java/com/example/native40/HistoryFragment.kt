@@ -68,7 +68,7 @@ class HistoryFragment : BaseFragment() {
                 }
             }).also { adapter ->
                 viewModel.items.observe(viewLifecycleOwner, Observer { items ->
-                    logger.info("viewModel.items changed.")
+                    logger.info("viewModel.items changed. ${items?.size}")
                     adapter.submitList(items)
                 })
             }

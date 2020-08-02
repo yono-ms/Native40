@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class HistoryViewModel : BaseViewModel() {
     private val dbItems: LiveData<List<User>> by lazy {
+        logger.info("userDao getHistoryLiveDataLogin START")
         db.userDao().getHistoryLiveDataLogin()
     }
 
@@ -21,6 +22,7 @@ class HistoryViewModel : BaseViewModel() {
     val items: MediatorLiveData<List<User>> by lazy {
         MediatorLiveData<List<User>>().apply {
             fun mediate(list: List<User>?, isSortByLogin: Boolean?) {
+                logger.info("mediate ${list?.size} $isSortByLogin")
                 items.value =
                     if (isSortByLogin == true) list?.sortedBy { a -> a.login } else list?.sortedByDescending { a -> a.timeStamp }
             }
