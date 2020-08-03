@@ -26,4 +26,6 @@
     <string name="button_edit_history">Edit History</string>
     <string name="radio_login">sort by login</string>
     <string name="radio_date">sort by date</string>
+
+    <string name="date_format">%1$tY/%1$tm/%1$td/ %1$tH:%1$tm</string>
 </resources>
