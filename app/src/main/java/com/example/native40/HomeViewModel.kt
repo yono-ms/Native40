@@ -17,11 +17,17 @@ class HomeViewModel : BaseViewModel() {
 
     val login: MutableLiveData<String> by lazy { MutableLiveData("") }
 
-    val items: MutableLiveData<List<Pair<String, String>>> by lazy {
-        MutableLiveData<List<Pair<String, String>>>(
+    val items: MutableLiveData<List<Repository>> by lazy {
+        MutableLiveData<List<Repository>>(
             listOf()
         )
     }
+
+    data class Repository(
+        val name: String,
+        val updatedAt: String,
+        val htmlUrl: String
+    )
 
     fun onHistory() {
         viewModelScope.launch {
@@ -52,10 +58,11 @@ class HomeViewModel : BaseViewModel() {
                 mainViewModel.busy.value = true
                 items.value = listOf()
                 GitHubAPI().getRepos(login.value.toString()).map { a ->
-                    val name = a.jsonObject["name"]?.content ?: "no_name"
+                    val name = a.jsonObject["name"]?.content.toString()
                     val updatedAt =
                         a.jsonObject["updated_at"]?.content.toString().toDisplayDateFromISO()
-                    Pair(name, updatedAt)
+                    val htmlUrl = a.jsonObject["html_url"]?.content.toString()
+                    Repository(name, updatedAt, htmlUrl)
                 }
             }.onSuccess {
                 items.value = it
