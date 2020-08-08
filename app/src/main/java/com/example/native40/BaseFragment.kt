@@ -46,7 +46,7 @@ open class BaseFragment : Fragment() {
             when (destination) {
                 Destination.REPLACE_HOME -> it.replace(id, HomeFragment.newInstance()).commit()
                 Destination.PUSH_HISTORY -> it.replace(id, HistoryFragment.newInstance())
-                    .addToBackStack(this.javaClass.simpleName).commit()
+                    .addToBackStack(getString(R.string.fragment_title_history)).commit()
             }
         }
     }

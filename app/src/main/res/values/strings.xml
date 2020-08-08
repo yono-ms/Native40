@@ -8,6 +8,9 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_test">TEST</string>
 
+    <string name="fragment_title_home">Home</string>
+    <string name="fragment_title_history">History</string>
+
     <string name="dialog_title_fuel_error">COMM ERROR</string>
     <string name="dialog_title_http_exception">HTTP ERROR</string>
     <string name="dialog_title_malformed_url_exception">URL ERROR</string>
