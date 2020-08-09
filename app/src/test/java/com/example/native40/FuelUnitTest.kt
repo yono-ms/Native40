@@ -34,7 +34,7 @@ class FuelUnitTest {
     fun badProtocol() {
         runBlocking {
             kotlin.runCatching {
-                val (request, response, result) = Fuel.get("protocol://hhoosstt/aappii")
+                val (request, response, result) = Fuel.get("protocol://hostNameIsBad/apiIsBad")
                     .awaitStringResponseResult()
                 println(request)
                 println(response)
@@ -55,7 +55,7 @@ class FuelUnitTest {
     @Test
     fun badHost() = runBlocking {
         kotlin.runCatching {
-            val (request, response, result) = Fuel.get("https://hhoosstt/aappii")
+            val (request, response, result) = Fuel.get("https://hostNameIsBad/apiIsBad")
                 .awaitStringResponseResult()
             println(request)
             println(response)
@@ -77,7 +77,7 @@ class FuelUnitTest {
     @Test
     fun badApi() = runBlocking {
         kotlin.runCatching {
-            val (request, response, result) = Fuel.get("https://httpbin.org/aappii")
+            val (request, response, result) = Fuel.get("https://httpbin.org/apiIsBad")
                 .awaitStringResponseResult()
             println(request)
             println(response)
