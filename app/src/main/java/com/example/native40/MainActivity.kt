@@ -42,6 +42,19 @@ class MainActivity : AppCompatActivity() {
             logger.info("savedInstanceState=$savedInstanceState")
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayoutContent, StartFragment.newInstance()).commit()
+            viewModel.headerText.value = getString(R.string.fragment_title_home)
+        }
+        supportFragmentManager.addOnBackStackChangedListener {
+            supportFragmentManager.backStackEntryCount.also {
+                logger.info("backStackEntryCount=$it")
+                for (index in 0 until it) {
+                    logger.info("$index ${supportFragmentManager.getBackStackEntryAt(index).name}")
+                }
+                viewModel.headerText.value =
+                    if (it == 0) getString(R.string.fragment_title_home) else supportFragmentManager.getBackStackEntryAt(
+                        it - 1
+                    ).name
+            }
         }
     }
 
