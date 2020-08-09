@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2020. yono-ms
  */
+package com.example.native40
 
 import com.example.native40.network.GitHubAPICore
 import kotlinx.coroutines.runBlocking

@@ -7,6 +7,8 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_test">TEST</string>
+    <string name="text_online">OnLine</string>
+    <string name="text_offline">OffLine</string>
 
     <string name="fragment_title_home">Home</string>
     <string name="fragment_title_history">History</string>

@@ -39,18 +39,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/app_name" />
 
-        <ImageView
-            android:id="@+id/imageViewConnect"
+        <TextView
+            android:id="@+id/textViewConnect"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitCenter"
-            android:tint="@{mainViewModel.connected ? @android:color/holo_green_light : @android:color/holo_red_light}"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
+            android:text="@{mainViewModel.connected ? @string/text_online : @string/text_offline}"
+            android:textColor="@android:color/primary_text_dark"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-            app:srcCompat="@android:drawable/alert_light_frame" />
+            tools:text="@string/text_online" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
