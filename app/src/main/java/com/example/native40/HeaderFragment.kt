@@ -18,10 +18,6 @@ import org.slf4j.LoggerFactory
 
 class HeaderFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HeaderFragment()
-    }
-
     val logger: Logger by lazy {
         LoggerFactory.getLogger(javaClass.simpleName)
     }
@@ -44,6 +40,7 @@ class HeaderFragment : Fragment() {
             false
         ).also {
             it.mainViewModel = mainViewModel
+            it.viewModel = viewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
         return binding.root
