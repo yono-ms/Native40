@@ -9,6 +9,7 @@
     <string name="button_test">TEST</string>
     <string name="text_online">OnLine</string>
     <string name="text_offline">OffLine</string>
+    <string name="text_empty" />
 
     <string name="fragment_title_home">Home</string>
     <string name="fragment_title_history">History</string>
@@ -33,4 +34,5 @@
     <string name="radio_date">sort by date</string>
 
     <string name="date_format">%1$tY/%1$tm/%1$td/ %1$tH:%1$tm</string>
+    <string name="action_history">Edit History</string>
 </resources>

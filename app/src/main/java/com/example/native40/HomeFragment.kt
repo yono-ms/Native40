@@ -6,9 +6,7 @@ package com.example.native40
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -48,9 +46,6 @@ class HomeFragment : BaseFragment() {
             it.button.setOnClickListener {
                 viewModel.onClick(mainViewModel)
             }
-            it.buttonEditHistory.setOnClickListener {
-                viewModel.destination.value = Destination.PUSH_HISTORY
-            }
             it.recyclerView.layoutManager = LinearLayoutManager(context)
             it.recyclerView.adapter = RepositoryAdapter().also { adapter ->
                 viewModel.items.observe(viewLifecycleOwner, Observer { items ->
@@ -59,8 +54,24 @@ class HomeFragment : BaseFragment() {
                 })
             }
             initBaseFragment(viewModel)
+            setHasOptionsMenu(true)
         }
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.home_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.actionSettings -> {
+                viewModel.destination.value = Destination.PUSH_HISTORY
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
