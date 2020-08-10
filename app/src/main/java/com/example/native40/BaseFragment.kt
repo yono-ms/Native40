@@ -51,6 +51,15 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.headerText.value = when (this) {
+            is HomeFragment -> getString(R.string.fragment_title_home)
+            is HistoryFragment -> getString(R.string.fragment_title_history)
+            else -> getString(R.string.app_name)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         logger.info("onActivityResult requestCode=$requestCode resultCode=$resultCode")
         super.onActivityResult(requestCode, resultCode, data)

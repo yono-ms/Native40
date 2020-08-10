@@ -10,6 +10,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -38,11 +39,11 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        setSupportActionBar(binding.toolBar)
         if (savedInstanceState == null) {
-            logger.info("savedInstanceState=$savedInstanceState")
+            logger.info("initial start.")
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayoutContent, StartFragment.newInstance()).commit()
-            viewModel.headerText.value = getString(R.string.fragment_title_home)
         }
         supportFragmentManager.addOnBackStackChangedListener {
             supportFragmentManager.backStackEntryCount.also {
@@ -50,12 +51,17 @@ class MainActivity : AppCompatActivity() {
                 for (index in 0 until it) {
                     logger.info("$index ${supportFragmentManager.getBackStackEntryAt(index).name}")
                 }
-                viewModel.headerText.value =
-                    if (it == 0) getString(R.string.fragment_title_home) else supportFragmentManager.getBackStackEntryAt(
-                        it - 1
-                    ).name
+                supportActionBar?.setDisplayHomeAsUpEnabled(it != 0)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            super.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
