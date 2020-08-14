@@ -66,8 +66,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.actionSettings -> {
+            R.id.actionHistory -> {
                 viewModel.destination.value = Destination.PUSH_HISTORY
+                true
+            }
+            R.id.actionSettings -> {
+                viewModel.destination.value = Destination.PUSH_SETTINGS
                 true
             }
             else -> super.onOptionsItemSelected(item)

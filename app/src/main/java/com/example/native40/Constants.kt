@@ -16,5 +16,6 @@ enum class ExtraKey(val rawValue: String) {
 
 enum class Destination {
     REPLACE_HOME,
-    PUSH_HISTORY
+    PUSH_HISTORY,
+    PUSH_SETTINGS
 }

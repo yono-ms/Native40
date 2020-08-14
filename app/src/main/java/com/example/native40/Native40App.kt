@@ -14,6 +14,7 @@ class Native40App : Application() {
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(Native40App::class.java.simpleName)
         lateinit var db: AppDatabase
+        lateinit var prefs: PreferenceTool
     }
 
     override fun onCreate() {
@@ -24,5 +25,6 @@ class Native40App : Application() {
             AppDatabase::class.java,
             "native40_database"
         ).build()
+        prefs = PreferenceTool(applicationContext)
     }
 }

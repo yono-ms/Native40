@@ -26,8 +26,12 @@ class StartViewModel : BaseViewModel() {
             progressInt.value = progressInt.value?.plus(1)
             delay(200)
             progressInt.value = progressInt.value?.plus(1)
-            dialogMessage.value =
-                DialogMessage(RequestCode.ALERT, R.string.app_name, R.string.app_name)
+            if (prefs.startPrompt) {
+                dialogMessage.value =
+                    DialogMessage(RequestCode.ALERT, R.string.app_name, R.string.app_name)
+            } else {
+                destination.value = Destination.REPLACE_HOME
+            }
         }
     }
 }
