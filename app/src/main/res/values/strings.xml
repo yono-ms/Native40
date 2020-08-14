@@ -13,6 +13,7 @@
 
     <string name="fragment_title_home">Home</string>
     <string name="fragment_title_history">History</string>
+    <string name="fragment_title_settings">Settings</string>
 
     <string name="dialog_title_fuel_error">COMM ERROR</string>
     <string name="dialog_title_http_exception">HTTP ERROR</string>
@@ -35,4 +36,28 @@
 
     <string name="date_format">%1$tY/%1$tm/%1$td/ %1$tH:%1$tm</string>
     <string name="action_history">Edit History</string>
+
+    <string name="preference_category_app">Application settings</string>
+    <string name="preference_start_key">start</string>
+    <string name="preference_start_title">Start</string>
+    <string name="preference_start_summary">Prompt Start Fragment</string>
+    <string name="preference_category_user">User settings</string>
+    <string name="preference_name_key">name</string>
+    <string name="preference_name_title">User Name</string>
+    <string name="preference_name_summary">Application owner</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="action_settings">Settings</string>
 </resources>

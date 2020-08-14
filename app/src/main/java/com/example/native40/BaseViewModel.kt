@@ -16,6 +16,7 @@ open class BaseViewModel : ViewModel() {
     }
 
     val db: AppDatabase = Native40App.db
+    val prefs: PreferenceTool = Native40App.prefs
 
     val dialogMessage: MutableLiveData<DialogMessage> by lazy { MutableLiveData<DialogMessage>() }
     val destination: MutableLiveData<Destination> by lazy { MutableLiveData<Destination>() }
