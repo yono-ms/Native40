@@ -21,11 +21,10 @@ class StartViewModel : BaseViewModel() {
     fun start() {
         logger.info("start.")
         viewModelScope.launch {
-            progressInt.value = progressInt.value?.plus(1)
-            delay(200)
-            progressInt.value = progressInt.value?.plus(1)
-            delay(200)
-            progressInt.value = progressInt.value?.plus(1)
+            for (count in 1..3) {
+                progressInt.value = count
+                delay(500)
+            }
             if (prefs.startPrompt) {
                 dialogMessage.value =
                     DialogMessage(RequestCode.ALERT, R.string.app_name, R.string.app_name)
