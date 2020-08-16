@@ -8,6 +8,8 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.native40.extension.setCustomAnimationsNav
+import com.example.native40.extension.setCustomAnimationsReplace
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -44,10 +46,13 @@ open class BaseFragment : Fragment() {
         val id = R.id.frameLayoutContent
         requireActivity().supportFragmentManager.beginTransaction().let {
             when (destination) {
-                Destination.REPLACE_HOME -> it.replace(id, HomeFragment.newInstance()).commit()
-                Destination.PUSH_HISTORY -> it.replace(id, HistoryFragment.newInstance())
+                Destination.REPLACE_HOME -> it.setCustomAnimationsReplace()
+                    .replace(id, HomeFragment.newInstance()).commit()
+                Destination.PUSH_HISTORY -> it.setCustomAnimationsNav()
+                    .replace(id, HistoryFragment.newInstance())
                     .addToBackStack(getString(R.string.fragment_title_history)).commit()
-                Destination.PUSH_SETTINGS -> it.replace(id, SettingsFragment())
+                Destination.PUSH_SETTINGS -> it.setCustomAnimationsNav()
+                    .replace(id, SettingsFragment())
                     .addToBackStack(getString(R.string.fragment_title_settings)).commit()
             }
         }
