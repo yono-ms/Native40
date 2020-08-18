@@ -46,6 +46,8 @@
     <string name="preference_name_title">User Name</string>
     <string name="preference_name_summary">Application owner</string>
 
+    <string name="preference_timestamp_key">timestamp</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

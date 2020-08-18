@@ -10,6 +10,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class StartViewModel : BaseViewModel() {
 
@@ -21,6 +22,7 @@ class StartViewModel : BaseViewModel() {
     fun start() {
         logger.info("start.")
         viewModelScope.launch {
+            prefs.timestamp = Date()
             for (count in 1..3) {
                 progressInt.value = count
                 delay(500)
