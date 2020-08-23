@@ -10,7 +10,8 @@ import com.example.native40.db.User
 import com.example.native40.extension.toDisplayDateFromISO
 import com.example.native40.network.GitHubAPI
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.content
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import java.util.*
 
 class HomeViewModel : BaseViewModel() {
@@ -58,10 +59,11 @@ class HomeViewModel : BaseViewModel() {
                 mainViewModel.busy.value = true
                 items.value = listOf()
                 GitHubAPI().getRepos(login.value.toString()).map { a ->
-                    val name = a.jsonObject["name"]?.content.toString()
+                    val name = a.jsonObject["name"]?.jsonPrimitive?.content.toString()
                     val updatedAt =
-                        a.jsonObject["updated_at"]?.content.toString().toDisplayDateFromISO()
-                    val htmlUrl = a.jsonObject["html_url"]?.content.toString()
+                        a.jsonObject["updated_at"]?.jsonPrimitive?.content.toString()
+                            .toDisplayDateFromISO()
+                    val htmlUrl = a.jsonObject["html_url"]?.jsonPrimitive?.content.toString()
                     Repository(name, updatedAt, htmlUrl)
                 }
             }.onSuccess {

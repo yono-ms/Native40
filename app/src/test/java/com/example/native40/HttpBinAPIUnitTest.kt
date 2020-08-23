@@ -4,6 +4,7 @@
 
 package com.example.native40
 
+//import kotlinx.serialization.json.JsonException
 import com.example.native40.network.model.HttpBinGetModel
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
@@ -13,8 +14,6 @@ import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
-import kotlinx.serialization.json.JsonException
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -25,11 +24,9 @@ class HttpBinAPIUnitTest {
     companion object {
         const val basePath = "https://httpbin.org"
         const val apiGet = "/get"
-        val json = Json(
-            JsonConfiguration.Stable.copy(
-                ignoreUnknownKeys = true
-            )
-        )
+        val json = Json {
+            ignoreUnknownKeys = true
+        }
     }
 
     @Before
@@ -45,7 +42,7 @@ class HttpBinAPIUnitTest {
             println(request)
             println(response)
             val text = result.get()
-            json.parse(HttpBinGetModel.serializer(), text)
+            json.decodeFromString(HttpBinGetModel.serializer(), text)
         }.onSuccess {
             assertEquals(it.url, "https://httpbin.org/get?arg1=value1&arg2=value2")
             assertEquals(it.args.size, 2)
@@ -74,7 +71,7 @@ class HttpBinAPIUnitTest {
             is HttpException -> println("HTTP ERROR : $message")
             is MalformedURLException -> println("URL ERROR : $message")
             is UnknownHostException -> println("DNS ERROR : $message")
-            is JsonException -> println("FORMAT ERROR : $message")
+//            is JsonException -> println("FORMAT ERROR : $message")
             is SerializationException -> println("PARSE ERROR : $message")
             else -> println("SYSTEM ERROR : $message")
         }

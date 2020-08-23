@@ -8,13 +8,14 @@ import com.example.native40.network.model.HttpBinGetModel
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.HttpException
+import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.github.kittinunf.fuel.coroutines.awaitObjectResponseResult
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
-import com.github.kittinunf.fuel.serialization.kotlinxDeserializerOf
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
-import kotlinx.serialization.json.JsonObjectSerializer
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -125,17 +126,18 @@ class FuelUnitTest {
         kotlin.runCatching {
             val (request, response, result) = Fuel.get("https://httpbin.org/get")
                 .awaitObjectResponseResult(
-                    kotlinxDeserializerOf(
-                        JsonObjectSerializer,
-                        Json(JsonConfiguration.Stable.copy(ignoreUnknownKeys = true))
-                    )
+                    object : ResponseDeserializable<JsonObject> {
+                        override fun deserialize(content: String): JsonObject? {
+                            return Json { ignoreUnknownKeys = true }.decodeFromString(content)
+                        }
+                    }
                 )
             println(request)
             println(response)
             result.get()
         }.onSuccess {
             println(it)
-            assertEquals("https://httpbin.org/get", it.getPrimitive("url").content)
+            assertEquals("https://httpbin.org/get", it.getValue("url").jsonPrimitive.content)
         }.onFailure {
             println("COMM ERROR : ${it.message}")
             assert(false)
@@ -153,10 +155,11 @@ class FuelUnitTest {
         kotlin.runCatching {
             val (request, response, result) = Fuel.get("https://httpbin.org/get")
                 .awaitObjectResponseResult(
-                    kotlinxDeserializerOf(
-                        HttpBinGetModel.serializer(),
-                        Json(JsonConfiguration.Stable.copy(ignoreUnknownKeys = true))
-                    )
+                    object : ResponseDeserializable<HttpBinGetModel> {
+                        override fun deserialize(content: String): HttpBinGetModel? {
+                            return Json { ignoreUnknownKeys = true }.decodeFromString(content)
+                        }
+                    }
                 )
             println(request)
             println(response)

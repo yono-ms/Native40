@@ -38,7 +38,7 @@ class GitHubAPIUnitTest {
             val api = GitHubAPILocal()
             api.getRepos(login)
         }.onSuccess {
-            assertNotEquals(it.jsonArray.size, 0)
+            assertNotEquals(it.size, 0)
         }.onFailure {
             println(it.message)
             assert(false)
