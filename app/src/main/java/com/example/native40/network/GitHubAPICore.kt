@@ -9,17 +9,13 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonArraySerializer
-import kotlinx.serialization.json.JsonConfiguration
 
 abstract class GitHubAPICore {
     companion object {
         private const val url_users = "https://api.github.com/users/"
-        val json = Json(
-            JsonConfiguration.Stable.copy(
-                ignoreUnknownKeys = true
-            )
-        )
+        val json = Json {
+            ignoreUnknownKeys = true
+        }
     }
 
     abstract fun log(text: String)
@@ -30,7 +26,7 @@ abstract class GitHubAPICore {
         log("$request")
         log("$response")
         val text = result.get()
-        return json.parse(GitHubUserModel.serializer(), text)
+        return json.decodeFromString(GitHubUserModel.serializer(), text)
     }
 
     suspend fun getRepos(login: String): JsonArray {
@@ -39,6 +35,6 @@ abstract class GitHubAPICore {
         log("$request")
         log("$response")
         val text = result.get()
-        return json.parse(JsonArraySerializer, text)
+        return json.decodeFromString(JsonArray.serializer(), text)
     }
 }
