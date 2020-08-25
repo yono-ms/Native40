@@ -60,7 +60,7 @@ class AlertDialogFragment : DialogFragment() {
                         if (message != 0) {
                             if (arguments?.containsKey(KEY_MESSAGE_ARGS) == true) {
                                 arguments?.getStringArrayList(KEY_MESSAGE_ARGS)?.let {
-                                    builder.setMessage(getString(message, it[0]))
+                                    builder.setMessage(getString(message, *it.toArray()))
                                 }
                             } else {
                                 builder.setMessage(message)
