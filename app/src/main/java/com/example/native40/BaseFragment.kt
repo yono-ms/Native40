@@ -7,7 +7,6 @@ package com.example.native40
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.example.native40.extension.setCustomAnimationsNav
 import com.example.native40.extension.setCustomAnimationsReplace
 import org.slf4j.Logger
@@ -23,7 +22,7 @@ open class BaseFragment : Fragment() {
     fun initBaseFragment(viewModel: BaseViewModel) {
         logger.info("initBaseFragment vm=$viewModel")
 
-        viewModel.dialogMessage.observe(viewLifecycleOwner, Observer {
+        viewModel.dialogMessage.observe(viewLifecycleOwner, {
             it?.let {
                 logger.info(it.toString())
                 val dialog = AlertDialogFragment.newInstance(it, this)
@@ -32,7 +31,7 @@ open class BaseFragment : Fragment() {
             }
         })
 
-        viewModel.destination.observe(viewLifecycleOwner, Observer {
+        viewModel.destination.observe(viewLifecycleOwner, {
             it?.let {
                 logger.info(it.toString())
                 transition(it)

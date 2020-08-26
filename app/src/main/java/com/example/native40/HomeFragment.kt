@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,7 +47,7 @@ class HomeFragment : BaseFragment() {
             }
             it.recyclerView.layoutManager = LinearLayoutManager(context)
             it.recyclerView.adapter = RepositoryAdapter().also { adapter ->
-                viewModel.items.observe(viewLifecycleOwner, Observer { items ->
+                viewModel.items.observe(viewLifecycleOwner, { items ->
                     logger.info("viewModel.items changed.")
                     adapter.submitList(items)
                 })

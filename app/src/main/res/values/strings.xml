@@ -7,7 +7,6 @@
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_test">TEST</string>
-    <string name="text_online">OnLine</string>
     <string name="text_offline">OffLine</string>
     <string name="text_empty" />
 
@@ -19,7 +18,6 @@
     <string name="dialog_title_http_exception">HTTP ERROR</string>
     <string name="dialog_title_malformed_url_exception">URL ERROR</string>
     <string name="dialog_title_unknown_host_exception">DNS ERROR</string>
-    <string name="dialog_title_json_exception">FORMAT ERROR</string>
     <string name="dialog_title_serialization_exception">PARSE ERROR</string>
     <string name="dialog_title_other_exception">SYSTEM ERROR</string>
     <string name="dialog_title_history_choice">Select login name</string>
@@ -30,7 +28,6 @@
     <string name="dialog_message_connection_error">Network is not connected.</string>
     <string name="login_hint">login</string>
     <string name="button_history">History</string>
-    <string name="button_edit_history">Edit History</string>
     <string name="radio_login">sort by login</string>
     <string name="radio_date">sort by date</string>
 
@@ -40,11 +37,9 @@
     <string name="preference_category_app">Application settings</string>
     <string name="preference_start_key">start</string>
     <string name="preference_start_title">Start</string>
-    <string name="preference_start_summary">Prompt Start Fragment</string>
     <string name="preference_category_user">User settings</string>
     <string name="preference_name_key">name</string>
     <string name="preference_name_title">User Name</string>
-    <string name="preference_name_summary">Application owner</string>
 
     <string name="preference_timestamp_key">timestamp</string>
 

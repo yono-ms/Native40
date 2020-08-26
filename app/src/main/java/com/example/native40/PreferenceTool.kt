@@ -4,18 +4,10 @@
 
 package com.example.native40
 
-import android.content.Context
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
 import java.util.*
 
-class PreferenceTool(var context: Context) {
-
-    private val prefs: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(
-            context
-        )
-    }
+class PreferenceTool(private var prefs: SharedPreferences, val getKey: ((resId: Int) -> String)) {
 
     val startPrompt: Boolean
         get() {
@@ -33,8 +25,4 @@ class PreferenceTool(var context: Context) {
                 apply()
             }
         }
-
-    private fun getKey(resId: Int): String {
-        return context.getString(resId)
-    }
 }
