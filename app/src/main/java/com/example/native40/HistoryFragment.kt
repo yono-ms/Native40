@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +46,7 @@ class HistoryFragment : BaseFragment() {
             initBaseFragment(viewModel)
             it.recyclerView.layoutManager = LinearLayoutManager(context)
             it.recyclerView.adapter = UserAdapter().also { adapter ->
-                viewModel.items.observe(viewLifecycleOwner, Observer { items ->
+                viewModel.items.observe(viewLifecycleOwner, { items ->
                     logger.info("viewModel.items changed. ${items?.size}")
                     adapter.submitList(items)
                 })

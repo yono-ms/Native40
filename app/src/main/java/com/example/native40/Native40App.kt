@@ -5,6 +5,7 @@
 package com.example.native40
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.example.native40.db.AppDatabase
 import org.slf4j.Logger
@@ -25,6 +26,9 @@ class Native40App : Application() {
             AppDatabase::class.java,
             "native40_database"
         ).build()
-        prefs = PreferenceTool(applicationContext)
+        prefs = PreferenceTool(
+            PreferenceManager.getDefaultSharedPreferences(applicationContext),
+            ::getString
+        )
     }
 }
