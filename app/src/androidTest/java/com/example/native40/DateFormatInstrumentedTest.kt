@@ -13,7 +13,7 @@ import java.util.*
 
 class DateFormatInstrumentedTest {
 
-    lateinit var today: Date
+    private lateinit var today: Date
 
     @Before
     fun before() {
