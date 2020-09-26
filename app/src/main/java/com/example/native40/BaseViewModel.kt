@@ -27,4 +27,8 @@ open class BaseViewModel : ViewModel() {
             R.string.dialog_title_connection_error,
             R.string.dialog_message_connection_error
         )
+
+    open fun onSaveInstanceState() {
+        logger.info("onSaveInstanceState ignore.")
+    }
 }

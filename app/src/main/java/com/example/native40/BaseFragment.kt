@@ -5,6 +5,7 @@
 package com.example.native40
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.native40.extension.setCustomAnimationsNav
@@ -57,13 +58,44 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        logger.info("onSaveInstanceState")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        logger.info("onCreate savedInstanceState=$savedInstanceState")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        logger.info("onStart")
+    }
+
     override fun onResume() {
         super.onResume()
+        logger.info("onResume")
         mainViewModel.headerText.value = when (this) {
             is HomeFragment -> getString(R.string.fragment_title_home)
             is HistoryFragment -> getString(R.string.fragment_title_history)
             else -> getString(R.string.app_name)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        logger.info("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        logger.info("onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        logger.info("onDestroy")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
