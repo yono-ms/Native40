@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -26,9 +26,7 @@ class HistoryFragment : BaseFragment() {
         fun newInstance() = HistoryFragment()
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[HistoryViewModel::class.java]
-    }
+    private val viewModel: HistoryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

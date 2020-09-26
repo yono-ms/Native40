@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.native40.databinding.StartFragmentBinding
 
 class StartFragment : BaseFragment() {
@@ -19,9 +19,7 @@ class StartFragment : BaseFragment() {
         fun newInstance() = StartFragment()
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[StartViewModel::class.java]
-    }
+    private val viewModel: StartViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

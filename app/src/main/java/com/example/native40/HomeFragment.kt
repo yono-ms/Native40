@@ -8,7 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -22,9 +22,7 @@ class HomeFragment : BaseFragment() {
         fun newInstance() = HomeFragment()
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +54,11 @@ class HomeFragment : BaseFragment() {
             setHasOptionsMenu(true)
         }
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.onSaveInstanceState()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -5,6 +5,7 @@
 package com.example.native40
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.native40.db.User
 import com.example.native40.extension.toDisplayDateFromISO
@@ -14,9 +15,20 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import java.util.*
 
-class HomeViewModel : BaseViewModel() {
+class HomeViewModel(private val state: SavedStateHandle) : BaseViewModel() {
 
-    val login: MutableLiveData<String> by lazy { MutableLiveData("") }
+    companion object {
+        enum class StateKey(val rawValue: String) {
+            Login("Login")
+        }
+    }
+
+    override fun onSaveInstanceState() {
+        logger.info("onSaveInstanceState login=${login.value}")
+        state.set(StateKey.Login.rawValue, login.value)
+    }
+
+    val login: MutableLiveData<String> by lazy { MutableLiveData(state.get(StateKey.Login.rawValue)) }
 
     val items: MutableLiveData<List<Repository>> by lazy {
         MutableLiveData<List<Repository>>(

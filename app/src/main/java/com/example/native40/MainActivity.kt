@@ -11,9 +11,9 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.native40.databinding.ActivityMainBinding
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -24,9 +24,7 @@ class MainActivity : AppCompatActivity() {
         private val logger: Logger = LoggerFactory.getLogger(MainActivity::class.java.simpleName)
     }
 
-    private val viewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     private val connectivityManager by lazy {
         applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
