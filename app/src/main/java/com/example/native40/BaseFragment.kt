@@ -8,8 +8,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.native40.extension.setCustomAnimationsNav
-import com.example.native40.extension.setCustomAnimationsReplace
+import androidx.navigation.fragment.findNavController
+import com.example.native40.extension.dialogMessage
+import com.example.native40.extension.dialogTitle
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -26,8 +27,18 @@ open class BaseFragment : Fragment() {
         viewModel.dialogMessage.observe(viewLifecycleOwner, {
             it?.let {
                 logger.info(it.toString())
-                val dialog = AlertDialogFragment.newInstance(it, this)
-                dialog.show(requireActivity().supportFragmentManager, "alert")
+                val dialogTitle = it.throwable?.dialogTitle ?: it.title ?: 0
+                val dialogMessage = it.message ?: 0
+                findNavController().navigate(
+                    AlertDialogFragmentDirections.actionGlobalAlertDialog(
+                        it.requestKey.rawValue,
+                        dialogTitle,
+                        dialogMessage,
+                        it.messageArgs?.toTypedArray(),
+                        it.throwable?.dialogMessage,
+                        it.items?.toTypedArray()
+                    )
+                )
                 viewModel.dialogMessage.value = null
             }
         })
@@ -43,18 +54,10 @@ open class BaseFragment : Fragment() {
 
     private fun transition(destination: Destination) {
         logger.info("transition destination=$destination")
-        val id = R.id.frameLayoutContent
-        requireActivity().supportFragmentManager.beginTransaction().let {
-            when (destination) {
-                Destination.REPLACE_HOME -> it.setCustomAnimationsReplace()
-                    .replace(id, HomeFragment.newInstance()).commit()
-                Destination.PUSH_HISTORY -> it.setCustomAnimationsNav()
-                    .replace(id, HistoryFragment.newInstance())
-                    .addToBackStack(getString(R.string.fragment_title_history)).commit()
-                Destination.PUSH_SETTINGS -> it.setCustomAnimationsNav()
-                    .replace(id, SettingsFragment())
-                    .addToBackStack(getString(R.string.fragment_title_settings)).commit()
-            }
+        when (destination) {
+            Destination.REPLACE_HOME -> findNavController().navigate(R.id.action_start_to_home)
+            Destination.PUSH_HISTORY -> findNavController().navigate(R.id.action_home_to_history)
+            Destination.PUSH_SETTINGS -> findNavController().navigate(R.id.action_home_to_settings)
         }
     }
 

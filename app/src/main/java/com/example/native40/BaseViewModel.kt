@@ -23,7 +23,7 @@ open class BaseViewModel : ViewModel() {
 
     val connectionErrorDialogMessage: DialogMessage
         get() = DialogMessage(
-            RequestCode.ALERT,
+            RequestKey.ALERT,
             R.string.dialog_title_connection_error,
             R.string.dialog_message_connection_error
         )

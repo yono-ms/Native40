@@ -5,12 +5,12 @@
 package com.example.native40
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +22,7 @@ import com.example.native40.db.User
 
 class HistoryFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = HistoryFragment()
-    }
-
-    private val viewModel: HistoryViewModel by viewModels()
+    private val viewModel by viewModels<HistoryViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +47,7 @@ class HistoryFragment : BaseFragment() {
                 adapter.setOnClickListener { login ->
                     logger.info("onClick $login")
                     viewModel.dialogMessage.value = DialogMessage(
-                        RequestCode.OK_CANCEL,
+                        RequestKey.OK_CANCEL,
                         R.string.dialog_title_history_remove,
                         R.string.dialog_message_history_remove,
                         listOf(login)
@@ -62,16 +58,15 @@ class HistoryFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RequestCode.OK_CANCEL.rawValue) {
-            logger.info("onActivityResult requestCode=$requestCode resultCode=$resultCode")
-            if (resultCode == Activity.RESULT_OK) {
-                data?.getStringExtra(ExtraKey.SINGLE_CHOICE.rawValue)?.let {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setFragmentResultListener(RequestKey.OK_CANCEL.rawValue) { requestKey, bundle ->
+            logger.info("onActivityResult requestKey=$requestKey bundle=$bundle")
+            if (bundle.getInt(BundleKey.RESULT.rawValue) == Activity.RESULT_OK) {
+                bundle.getString(BundleKey.SELECTED.rawValue)?.let {
                     viewModel.remove(it)
                 }
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

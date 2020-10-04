@@ -4,14 +4,15 @@
 
 package com.example.native40
 
-enum class RequestCode(val rawValue: Int) {
-    ALERT(100),
-    OK_CANCEL(101),
-    SINGLE_CHOICE(102)
+enum class RequestKey(val rawValue: String) {
+    ALERT("ALERT"),
+    OK_CANCEL("OK_CANCEL"),
+    SINGLE_CHOICE("SINGLE_CHOICE")
 }
 
-enum class ExtraKey(val rawValue: String) {
-    SINGLE_CHOICE("SINGLE_CHOICE")
+enum class BundleKey(val rawValue: String) {
+    RESULT("RESULT"),
+    SELECTED("SELECTED")
 }
 
 enum class Destination {

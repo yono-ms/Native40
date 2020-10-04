@@ -4,11 +4,13 @@
 
 package com.example.native40
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -18,11 +20,7 @@ import com.example.native40.databinding.RepositoryItemBinding
 
 class HomeFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +54,16 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setFragmentResultListener(RequestKey.SINGLE_CHOICE.rawValue) { requestKey, bundle ->
+            logger.info("onActivityResult requestKey=$requestKey bundle=$bundle")
+            bundle.getString(BundleKey.SELECTED.rawValue)?.let {
+                viewModel.onSelect(it)
+            }
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         viewModel.onSaveInstanceState()
@@ -67,28 +75,21 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.actionHistory -> {
-                viewModel.destination.value = Destination.PUSH_HISTORY
-                true
-            }
-            R.id.actionSettings -> {
-                viewModel.destination.value = Destination.PUSH_SETTINGS
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RequestCode.SINGLE_CHOICE.rawValue) {
-            logger.info("onActivityResult requestCode=$requestCode resultCode=$resultCode")
-            data?.getStringExtra(ExtraKey.SINGLE_CHOICE.rawValue)?.let {
-                viewModel.onSelect(it)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            findNavController()
+        ) || super.onOptionsItemSelected(item)
+//        return when (item.itemId) {
+//            R.id.actionHistory -> {
+//                viewModel.destination.value = Destination.PUSH_HISTORY
+//                true
+//            }
+//            R.id.actionSettings -> {
+//                viewModel.destination.value = Destination.PUSH_SETTINGS
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
     }
 
     class RepositoryAdapter :

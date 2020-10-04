@@ -13,9 +13,9 @@ package com.example.native40
  */
 data class DialogMessage(
     /**
-     * リクエストコード.
+     * リクエストキー.
      */
-    val requestCode: RequestCode,
+    val requestKey: RequestKey,
     /**
      * タイトルリソースID.
      */

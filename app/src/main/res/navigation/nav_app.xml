@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020. yono-ms
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_app"
+    app:startDestination="@id/start">
+
+    <fragment
+        android:id="@+id/start"
+        android:name="com.example.native40.StartFragment"
+        android:label="StartFragment"
+        tools:layout="@layout/start_fragment">
+        <action
+            android:id="@+id/action_start_to_home"
+            app:destination="@id/home"
+            app:enterAnim="@anim/replace_enter"
+            app:exitAnim="@anim/replace_exit"
+            app:popUpTo="@id/start"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.native40.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_home_to_history"
+            app:destination="@id/history"
+            app:enterAnim="@anim/nav_enter"
+            app:exitAnim="@anim/nav_exit"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit" />
+        <action
+            android:id="@+id/action_home_to_settings"
+            app:destination="@id/settings"
+            app:enterAnim="@anim/nav_enter"
+            app:exitAnim="@anim/nav_exit"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.native40.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.native40.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/history_fragment" />
+    <dialog
+        android:id="@+id/alertDialog"
+        android:name="com.example.native40.AlertDialogFragment"
+        android:label="AlertDialogFragment">
+        <argument
+            android:name="requestKey"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="message"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="messageArgs"
+            android:defaultValue="@null"
+            app:argType="string[]"
+            app:nullable="true" />
+        <argument
+            android:name="messageText"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="items"
+            android:defaultValue="@null"
+            app:argType="string[]"
+            app:nullable="true" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_alertDialog"
+        app:destination="@id/alertDialog" />
+</navigation>
