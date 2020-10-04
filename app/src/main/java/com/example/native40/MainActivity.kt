@@ -10,10 +10,13 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.native40.databinding.ActivityMainBinding
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -37,29 +40,29 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        setSupportActionBar(binding.toolBar)
-        if (savedInstanceState == null) {
-            logger.info("initial start.")
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayoutContent, StartFragment.newInstance()).commit()
-        }
-        supportFragmentManager.addOnBackStackChangedListener {
-            supportFragmentManager.backStackEntryCount.also {
-                logger.info("backStackEntryCount=$it")
-                for (index in 0 until it) {
-                    logger.info("$index ${supportFragmentManager.getBackStackEntryAt(index).name}")
-                }
-                supportActionBar?.setDisplayHomeAsUpEnabled(it != 0)
+
+        viewModel.headerText.observe(this, {
+            supportActionBar?.title = it
+        })
+        viewModel.connected.observe(this, Observer {
+            supportActionBar?.subtitle =
+                if (it) getString(R.string.text_empty) else getString(R.string.text_offline)
+        })
+
+        val navController = findNavController(R.id.navHostFragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.home, R.id.start -> supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                else -> supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            super.onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onSupportNavigateUp(): Boolean {
+        logger.info("onSupportNavigateUp")
+        return findNavController(R.id.navHostFragment).popBackStack() || super.onSupportNavigateUp()
     }
 
     override fun onStart() {

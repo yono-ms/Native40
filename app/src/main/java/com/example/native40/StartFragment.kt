@@ -4,22 +4,18 @@
 
 package com.example.native40
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.example.native40.databinding.StartFragmentBinding
 
 class StartFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = StartFragment()
-    }
-
-    private val viewModel: StartViewModel by viewModels()
+    private val viewModel by viewModels<StartViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,15 +38,11 @@ class StartFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logger.info("onViewCreated")
+        setFragmentResultListener(RequestKey.ALERT.rawValue) { _, _ ->
+            viewModel.destination.value = Destination.REPLACE_HOME
+        }
         if (savedInstanceState == null) {
             viewModel.start()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            RequestCode.ALERT.rawValue -> viewModel.destination.value = Destination.REPLACE_HOME
-            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 }

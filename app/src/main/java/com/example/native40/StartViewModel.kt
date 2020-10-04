@@ -29,7 +29,7 @@ class StartViewModel : BaseViewModel() {
             }
             if (prefs.startPrompt) {
                 dialogMessage.value =
-                    DialogMessage(RequestCode.ALERT, R.string.app_name, R.string.app_name)
+                    DialogMessage(RequestKey.ALERT, R.string.app_name, R.string.app_name)
             } else {
                 destination.value = Destination.REPLACE_HOME
             }

@@ -50,7 +50,7 @@ class HomeViewModel(private val state: SavedStateHandle) : BaseViewModel() {
             }
             val histories = list.map { x -> x.login }
             dialogMessage.value = DialogMessage(
-                RequestCode.SINGLE_CHOICE,
+                RequestKey.SINGLE_CHOICE,
                 R.string.dialog_title_history_choice,
                 items = histories
             )
@@ -83,7 +83,7 @@ class HomeViewModel(private val state: SavedStateHandle) : BaseViewModel() {
                 db.userDao().insertAll(User(0, login.value.toString(), Date()))
                 logger.info("Success.")
             }.onFailure {
-                dialogMessage.value = DialogMessage(RequestCode.ALERT, throwable = it)
+                dialogMessage.value = DialogMessage(RequestKey.ALERT, throwable = it)
             }.also {
                 mainViewModel.busy.value = false
             }
